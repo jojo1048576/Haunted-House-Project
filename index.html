@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset='UTF-8'>
+    <meta name="viewport" content="width=500, initial-scale=1" />
+    <title>Online Horrors Escape Room!</title>
+    <link rel="preload" href="bloody-terror.woff2" as="font" type="font/woff2" crossorigin>
+    <style>
+      @font-face {
+        font-family: "Bloody Terror";
+        src: url("bloody-terror.woff2") format("woff2");
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(1.5vw);
+        }
+        50% {
+          transform: translateY(-1.5vw);
+        }
+        100% {
+          transform: translateY(1.5vw);
+        }
+      }
+
+      @keyframes redFlash {
+        0% {
+          color: black;
+        }
+
+        50% {
+          color: red;
+        }
+
+        100% {
+          color: black;
+        }
+      }
+
+      @keyframes BackgroundRedFlash {
+        0% {
+          background-color: black;
+        }
+
+        50% {
+          background-color: red;
+        }
+
+        100% {
+          background-color: black;
+        }
+      }
+
+      body {
+        text-align: center;
+        font-family: "Bloody Terror", Impact, sans-serif;
+        font-size: 1.5vw;
+        background-attachment:fixed;
+        background-position:center;
+        background-size: 100vh;
+        background-color: black;
+        background-repeat: no-repeat;
+      }
+      
+      .mainScreen h1 {
+        text-align: center;
+        color: red;
+        animation: float 3s infinite, redFlash 3s infinite;
+      }
+
+      button {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        border: 3px solid orangered;
+        border-radius: 0.75vw;
+        padding: 0.3vw;
+        background-color: red;
+        color: darkred;
+        font-family: "Bloody Terror", Impact, sans-serif;
+      }
+
+      button:hover {
+        border-color: color-mix(in srgb, orangered 90%, black);
+        background-color: color-mix(in srgb, red 90%, black);
+        color: color-mix(in srgb, daekred 90%, black);
+        box-shadow: 0 0 1vw rgb(128, 128, 0);
+      }
+
+      button:active {
+        border-color: color-mix(in srgb, orangered 80%, black);
+        background-color: color-mix(in srgb, red 80%, black);
+        color: color-mix(in srgb, darkred 80%, black);
+        box-shadow: 0 0 1vw rgba(128, 128, 0, 0.75);
+      }
+
+      footer p {
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        transform: translate(-50%);
+        color: red;
+      }
+
+      img {
+        display: none;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      #multipleClicksButton {
+        display: none;
+      }
+
+      .centeredH1 {
+        display: none;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        margin-top: 0;
+        font-size: 17.5vmin;
+        color: red;
+      }
+
+      #youWinH1 {
+        font-family: sans-serif;
+        color: green;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+    <div class="mainScreen">
+      <h1>WELCOME TO THE ONLINE HORRORS HAUNTED HOUSE*</h1>
+      <button onclick="enter()">ENTER</button>
+    </div>
+    <img id="smilerImage" src="https://i.ibb.co/WpPdPVFH/Chat-GPT-Image-Sep-29-2026-11-22-43-AM.png" alt="Backrooms Smiler Image" style="height: 100vmin">
+    <button id="multipleClicksButton">Click me 100 times to exit!</button>
+    <h1 class="centeredH1" id="countdown">10</h1>
+    <h1 class="centeredH1" id="youWinH1">&#40;:YOU WIN! GG!🥳</h1>
+    <img id="doorImage" src="sLGPxazY6FIP.png" alt="Closed Door Image" style="height: 50vmin">
+    </main>
+    <footer>
+      <p>*EPILEPSY WARNING</p>
+    </footer>
+    <script>
+      const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+      const lightSwitchSound = new Audio("dragon-studio-light-switch-382712.mp3");
+      const screamSound = new Audio("audiomass-output.mp3");
+      const itsJustABurningMemorySound = new Audio("The_Caretaker_-_A1_-_It_s_just_a_burning_memory_(mp3.mp3");
+      const heeHeeHeeHawSound = new Audio("clash-royale-'he-he-he-haw'-sound-effect-[original-audio]-meme-made-with-Voicemod.mp3");
+      const yaySound = new Audio("kids-saying-yay!-made-with-Voicemod.mp3");
+      const doorCreakSound = new Audio("universfield-creaking-door-03-487855.mp3")
+      const errorSound = new Audio("poppop.ai - windows xp error sound.mp3")
+      let clicks = 100
+      let exited = false
+
+      const multipleClicksButtonEventListener = () => {
+        clicks -= 1;
+        document.getElementById("multipleClicksButton").textContent = `Click me ${clicks} times to exit!`
+        if(clicks <= 0) {
+          if(countdown) {buttonZero()}
+          countdown = false
+          heeHeeHeeHawSound.currentTime = 0;
+          heeHeeHeeHawSound.play();
+        }
+      };
+
+      itsJustABurningMemorySound.currentTime = 0;
+
+      async function enter() {
+        countdown = true
+        lightSwitchSound.currentTime = 0;
+        lightSwitchSound.play();
+        document.querySelector(".mainScreen").style.display = "none";
+        document.querySelector("footer").style.display = "none";
+        await sleep(1000);
+        document.querySelector("#smilerImage").style.display = "block";
+        screamSound.currentTime = 0;
+        screamSound.play();
+        await sleep(750);
+        lightSwitchSound.currentTime = 0;
+        lightSwitchSound.play();
+        document.querySelector("#smilerImage").style.display = "none";
+        itsJustABurningMemorySound.loop = true;
+        itsJustABurningMemorySound.play();
+        document.querySelector("body").style.animation = "BackgroundRedFlash 0.01s infinite";
+        document.querySelector("#multipleClicksButton").style.display = "block";
+        document.getElementById("multipleClicksButton").addEventListener("click", multipleClicksButtonEventListener);
+      }
+
+      async function buttonZero() {
+        await sleep(5000);
+        document.getElementById("multipleClicksButton").removeEventListener("click", multipleClicksButtonEventListener);
+        lightSwitchSound.currentTime = 0;
+        lightSwitchSound.play();
+        document.querySelector("#multipleClicksButton").style.display = "none";
+        document.querySelector("body").style.animation = "BackgroundRedFlash 0.1s infinite";
+        document.querySelector("#countdown").style.display = "block";
+        await sleep(1000);
+        document.getElementById("countdown").textContent = 9;
+        await sleep(1000);
+        document.getElementById("countdown").textContent = 8;
+        await sleep(1000);
+        document.getElementById("countdown").textContent = 7;
+        await sleep(1000);
+        document.getElementById("countdown").textContent = 6;
+        await sleep(1000);
+        document.getElementById("countdown").textContent = 5;
+        await sleep(1000);
+        document.getElementById("countdown").textContent = 4;
+        await sleep(1000);
+        document.getElementById("countdown").textContent = 3;
+        await sleep(1000);
+        document.getElementById("countdown").textContent = 2;
+        await sleep(1000);
+        document.getElementById("countdown").textContent = 1;
+        document.querySelector("#countdown").style.display = "none";
+        doorCreakSound.currentTime = 0;
+        doorCreakSound.play();
+        document.querySelector("#doorImage").style.display = "block"
+        document.getElementById("doorImage").addEventListener("click", async () => {
+          exited = true
+          document.querySelector("#doorImage").style.display = "none";
+          itsJustABurningMemorySound.pause();
+          document.querySelector("body").style.animation = "none";
+          document.querySelector("body").style.backgroundColor = "lime";
+          yaySound.currentTime = 0;
+          yaySound.play();
+          document.querySelector("#youWinH1").style.display = "block";
+          await sleep(5000);
+          lightSwitchSound.currentTime = 0;
+          lightSwitchSound.play();
+          document.querySelector("#youWinH1").style.display = "none";
+          document.querySelector("body").style.backgroundColor = "black";
+          await sleep(1000);
+          document.querySelector("#smilerImage").style.display = "block";
+          screamSound.currentTime = 0;
+          screamSound.play();
+          await sleep(500)
+          document.querySelector("#smilerImage").style.display = "none";
+          errorSound.currentTime = 0;
+          errorSound.play();
+          document.querySelector("body").style.backgroundImage = "url('https://i.ibb.co/3ywWS0BB/glitch-error-404-page-23-2148105404.jpg')";
+          await sleep(3000)
+          runMalware()
+        }, {once: true});
+        await sleep(2000)
+        if(!exited) {
+          document.querySelector("#doorImage").style.display = "none";
+          clicks = 100
+          document.getElementById("multipleClicksButton").textContent = "Click me 100 times to exit!"
+          document.getElementById("countdown").textContent = 10;
+          document.querySelector("body").style.animation = "none";
+          enter()
+        }
+      }
+
+      function runMalware() {
+        const errorSound = new Audio("poppop.ai - windows xp error sound.mp3")
+
+        errorSound.currentTime = 0;
+        errorSound.play();
+
+        const malwareWindow = window.open("", "_blank", "popup, width=100, height=50");
+        const x = Math.random() * Math.max(0, screen.availWidth - 500);
+        const y = Math.random() * Math.max(0, screen.availHeight - 200);
+
+        if(!malwareWindow) {
+          document.body.appendChild(document.createElement("p")).textContent = "Please allow pop-ups."; 
+          return;
+        }
+
+        malwareWindow.document.open();
+        malwareWindow.moveTo(x, y);
+        malwareWindow.resizeTo(500, 250);
+        malwareWindow.document.write(`
+        <!DOCTYPE html>
+          <html lang="en">
+            <head>
+              <meta charset='UTF-8'>
+              <meta name="viewport" content="width=500, initial-scale=1" />
+              <title>Error Window</title>
+              <style>
+                @keyframes flash {
+                  0% {
+                    background-color: red;
+                  }
+
+                  50% {
+                    background-color: yellow;
+                  }
+
+                  100% {
+                    background-color: red;
+                  }
+                }
+
+                body {
+                  display: grid; 
+                  place-items: center; 
+                  margin: 0;
+                  font: sans-serif;
+                  color: darkred;
+                  animation: flash 0.25s infinite;
+                }
+              </style>
+            </head>
+            <body>
+              <h1>Error</h1>
+            </body>
+          </html>
+        `);
+        malwareWindow.document.close();
+        malwareWindow.onload = () => {runMalware()};
+      }
+    </script>
+  </body>
+</html>
